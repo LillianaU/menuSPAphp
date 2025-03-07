@@ -1,0 +1,81 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Revista</title>
+    <style>
+        /* ... (mantener los estilos anteriores) ... */
+        
+        /* Estilos adicionales para el contenido */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #1E6292;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0D2E42;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Revista de Conocimiento Público
+    </div>
+
+    <div class="container">
+        <!-- ... (mantener el sidebar como está) ... -->
+
+        <div class="content">
+            <div class="nav-tabs">
+                <a href="#" class="tab-link active" data-page="secciones.php">Secciones de la revista</a>
+                <a href="#" class="tab-link" data-page="cabecera.php">Cabecera</a>
+                <a href="#" class="tab-link" data-page="contacto.php">Contacto</a>
+            </div>
+
+            <div id="content-area" class="content-area">
+                <!-- El contenido se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

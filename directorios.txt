@@ -1,0 +1,18 @@
+tu_proyecto/
+├── index.php
+├── pages/
+│   ├── secciones.php
+│   ├── cabecera.php
+│   ├── contacto.php
+│   ├── envios.php
+│   ├── numeros.php
+│   ├── preferencias.php
+│   ├── usuarios.php
+│   ├── herramientas.php
+│   ├── administracion.php
+│   ├── revista.php
+│   ├── sitio_web.php
+│   ├── flujo_trabajo.php
+│   └── distribucion.php
+└── images/
+    └── logo-ojs.png

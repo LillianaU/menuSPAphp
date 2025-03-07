@@ -1,0 +1,225 @@
+<?php
+// index.php
+
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Revista</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f6f6f6;
+        }
+
+        .header {
+            background-color: #1E6292;
+            color: white;
+            padding: 10px 20px;
+            border-bottom: 1px solid #0D2E42;
+        }
+
+        .container {
+            display: flex;
+            min-height: calc(100vh - 50px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1E6292;
+            color: white;
+            height: calc(100vh - 50px);
+            position: fixed;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: #0D2E42;
+        }
+
+        .logo {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .logo img {
+            max-width: 150px;
+        }
+
+        .content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .nav-tabs {
+            background: #fff;
+            padding: 0 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nav-tabs a {
+            display: inline-block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #1E6292;
+            border: 1px solid transparent;
+            margin: 0 5px -1px;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .nav-tabs a.active {
+            border: 1px solid #ddd;
+            border-bottom-color: #fff;
+            background: #fff;
+        }
+
+        .content-area {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            min-height: 500px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* Estilos para tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        /* Estilos para formularios */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Revista de Conocimiento Público
+    </div>
+    <!--menu vertical-->
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="logo-ojs.png" alt="OJS Logo">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" data-page="envios.php">Envíos</a></li>
+                <li><a href="#" data-page="numeros.php">Números</a></li>
+                <li><a href="#" data-page="preferencias.php">Preferencias</a></li>
+                <li><a href="#" data-page="usuarios.php">Usuarios/as y roles</a></li>
+                <li><a href="#" data-page="herramientas.php">Herramientas</a></li>
+                <li><a href="#" data-page="administracion.php">Administración</a></li>
+                <li><a href="#" data-page="revista.php">Revista</a></li>
+                <li><a href="#" data-page="sitio_web.php">Sitio web</a></li>
+                <li><a href="#" data-page="flujo_trabajo.php">Flujo de trabajo</a></li>
+                <li><a href="#" data-page="distribucion.php">Distribución</a></li>
+            </ul>
+        </div>
+ <!--menu Horizontal-->
+        <div class="content">
+            <div class="nav-tabs">
+                <a href="#" data-page="secciones.php" class="tab-link active">Secciones de la revista</a>
+                <a href="#" data-page="cabecera.php" class="tab-link">Cabecera</a>
+                <a href="#" data-page="contacto.php" class="tab-link">Contacto</a>
+            </div>
+
+            <div id="content-area" class="content-area">
+                <!-- El contenido se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+function loadPage(page) {
+    document.getElementById('content-area').innerHTML = 'Cargando...';
+
+    let url = page.startsWith('pages/') ? page : 'pages/' + page;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la carga');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('content-area').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('content-area').innerHTML = 
+                '<div style="color: red;">No se pudo cargar la página.</div>';
+        });
+}
+
+
+        // Event listeners para las pestañas y menú
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar página inicial
+            loadPage('secciones.php');
+
+            // Event listener para las pestañas
+            document.querySelectorAll('.nav-tabs .tab-link').forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remover active de todas las pestañas
+                    document.querySelectorAll('.tab-link').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Agregar active a la pestaña clickeada
+                    this.classList.add('active');
+                    
+                    // Cargar la página
+                    loadPage(this.getAttribute('data-page'));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
